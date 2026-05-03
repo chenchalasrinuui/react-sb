@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+     "build:lib": "vite build --mode lib",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
@@ -41,5 +42,9 @@
     "storybook": "^10.3.6",
     "vite": "^8.0.0",
     "vitest": "^4.1.5"
-  }
+  },
+  "main": "dist/react-sb.umd.js",
+  "module": "dist/react-sb.es.js",
+  "files": ["dist"]
+
 }
