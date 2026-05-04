@@ -1,12 +1,12 @@
 {
-  "name": "my-story-book",
+  "name": "react-sb",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-     "build:lib": "vite build --mode lib",
+    "build:lib": "vite build --mode lib",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
