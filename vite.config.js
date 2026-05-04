@@ -1,27 +1,25 @@
-/// <reference types="vitest/config" />
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-
-import path from 'node:path';
+import { defineConfig } from 'vite'; 
+import react from '@vitejs/plugin-react'; 
+import path from 'node:path'; 
 import { fileURLToPath } from 'node:url';
-import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
-import { playwright } from '@vitest/browser-playwright';
-
-const dirname =
-  typeof __dirname !== 'undefined'
-    ? __dirname
-    : path.dirname(fileURLToPath(import.meta.url));
+ import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'; 
+ import { playwright } from '@vitest/browser-playwright';
+ 
+const dirname= typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig(({ mode }) => {
-  // ✅ LIBRARY BUILD MODE
   if (mode === 'lib') {
     return {
       plugins: [react()],
       build: {
         lib: {
-          entry: 'src/index.js',   // 🔴 REQUIRED
+          entry: 'src/index.js',
           name: 'ReactSB',
-          fileName: 'react-sb',
+
+          // 🔥 ADD THIS (VERY IMPORTANT)
+          formats: ['es', 'umd'],
+
+          fileName: (format) => `react-sb.${format}.js`,
         },
         rollupOptions: {
           external: ['react', 'react-dom'],
@@ -30,7 +28,6 @@ export default defineConfig(({ mode }) => {
     };
   }
 
-  // ✅ DEFAULT (Storybook + Dev + Tests)
   return {
     plugins: [react()],
     test: {
@@ -48,11 +45,7 @@ export default defineConfig(({ mode }) => {
               enabled: true,
               headless: true,
               provider: playwright({}),
-              instances: [
-                {
-                  browser: 'chromium',
-                },
-              ],
+              instances: [{ browser: 'chromium' }],
             },
           },
         },
